@@ -8,6 +8,7 @@ import {
   NavItem,
   NavLink
 } from "reactstrap";
+import { Link } from "react-router-dom";
 import Icon from "../assets/images/icon.png";
 
 class MyNavbar extends React.Component {
@@ -22,20 +23,30 @@ class MyNavbar extends React.Component {
     return (
       <Navbar color="dark" dark expand="md">
         <NavbarBrand href="/">
-          <img alt="Logo" src={Icon} style={{ width: 30, height: 30, margin: 10 }} />
+          <img
+            alt="Logo"
+            src={Icon}
+            style={{ width: 30, height: 30, margin: 10 }}
+          />
           Movies
         </NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink href="/" disabled>Home</NavLink>
+              <NavLink tag={Link} to="/">
+                Home
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/movies">Movies</NavLink>
+              <NavLink tag={Link} to="/movies">
+                Movies
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/series" disabled>Series</NavLink>
+              <NavLink tag={Link} to="/series">
+                Series
+              </NavLink>
             </NavItem>
           </Nav>
         </Collapse>
@@ -44,4 +55,4 @@ class MyNavbar extends React.Component {
   }
 }
 
-export default MyNavbar
+export default MyNavbar;

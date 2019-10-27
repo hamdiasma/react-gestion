@@ -1,8 +1,8 @@
 import React from "react";
 import { Button } from "reactstrap";
-import MovieCard from "./MovieCard";
-import AddMovieModal from "./modals/AddMovieModal";
-import MyPagination from "./MyPagination";
+import MovieCard from "../MovieCard";
+import AddMovieModal from "../modals/AddMovieModal";
+import MyPagination from "../MyPagination";
 
 class MoviesContainer extends React.Component {
   constructor(props) {

@@ -1,12 +1,27 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import MyNavbar from "./MyNavbar";
-import MoviesContainer from "./MoviesContainer";
+import HomeContainer from "./pages/HomeContainer";
+import MoviesContainer from "./pages/MoviesContainer";
+import SeriesContainer from "./pages/SeriesContainer";
 
-const App = () => (
-  <div className="App">
-    <MyNavbar />
-    <MoviesContainer />
-  </div>
-);
-
-export default App;
+export default function app() {
+  return (
+    <div className="App">
+      <Router>
+        <MyNavbar />
+        <Switch>
+          <Route exact path="/">
+            <HomeContainer />
+          </Route>
+          <Route path="/movies">
+            <MoviesContainer />
+          </Route>
+          <Route path="/series">
+            <SeriesContainer />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+  );
+}
