@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "reactstrap";
 import MovieCard from "../MovieCard";
-import AddMovieModal from "../modals/AddMovieModal";
+import AddSerieModal from "../modals/AddSerieModal";
 import MyPagination from "../MyPagination";
 
 class SeriesContainer extends React.Component {
@@ -76,7 +76,7 @@ class SeriesContainer extends React.Component {
               </span>{" "}
               Add movie
             </Button>
-            <AddMovieModal
+            <AddSerieModal
               isOpen={this.state.isAddOpen}
               toggle={this.toggleAdd}
               refresh={this.refresh}
@@ -97,7 +97,7 @@ class SeriesContainer extends React.Component {
           {this.state.movies === null ? (
             <h3 className="col text-center">Loading...</h3>
           ) : this.state.movies.length === 0 ? (
-            <h3 className="col text-center">No movies found...</h3>
+            <h3 className="col text-center">No series found...</h3>
           ) : (
             this.state.movies.map(m => (
               <MovieCard key={m._id} movie={m} refresh={this.refresh} />

@@ -22,7 +22,7 @@ class MyNavbar extends React.Component {
   render() {
     return (
       <Navbar color="dark" dark expand="md">
-        <NavbarBrand href="/">
+        <NavbarBrand tag={Link} to="/">
           <img
             alt="Logo"
             src={Icon}
