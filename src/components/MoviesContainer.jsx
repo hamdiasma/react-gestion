@@ -71,6 +71,9 @@ class MoviesContainer extends React.Component {
         >
           <div>
             <Button color="success" onClick={() => this.toggleAdd()}>
+              <span role="img" aria-label="add">
+                ➕ 
+              </span>{" "}
               Add movie
             </Button>
             <AddMovieModal

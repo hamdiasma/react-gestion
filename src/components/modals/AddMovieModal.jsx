@@ -78,6 +78,9 @@ const UpdateMovieModal = props => {
       </ModalBody>
       <ModalFooter>
         <Button color="success" onClick={() => handleAdd()}>
+          <span role="img" aria-label="add">
+            ➕
+          </span>{" "}
           Add
         </Button>
         <Button color="secondary" onClick={props.toggle}>

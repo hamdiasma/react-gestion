@@ -44,15 +44,15 @@ const MovieCard = props => {
             <strong>Year:</strong> {props.movie.year}
           </CardSubtitle>
           <CardText>
-            <strong>Runtime:</strong> {props.movie.runtime}
+            <strong>Runtime:</strong> {props.movie.runtime} min
           </CardText>
         </CardBody>
         <CardFooter style={{ display: "flex", placeContent: "space-between" }}>
           <Button color="warning" onClick={() => toggleUpdate()}>
-            Update
+            <span role="img" aria-label="edit">🖊️</span>{" "}Update
           </Button>
           <Button color="danger" onClick={() => toggleDelete()}>
-            Delete
+            <span role="img" aria-label="delete">🗑️</span>{" "}Delete
           </Button>
         </CardFooter>
       </Card>

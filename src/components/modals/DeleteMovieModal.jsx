@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 const DeleteMovieModal = props => {
-  
   const handleDelete = async id => {
     await fetch(`http://localhost:5000/film/${id}`, {
       method: "delete"
@@ -19,6 +18,9 @@ const DeleteMovieModal = props => {
       <ModalBody>Do you really want to delete this movie?</ModalBody>
       <ModalFooter>
         <Button color="danger" onClick={() => handleDelete(props.movie._id)}>
+          <span role="img" aria-label="delete">
+            🗑️
+          </span>{" "}
           Delete
         </Button>
         <Button color="secondary" onClick={props.toggle}>
