@@ -2,14 +2,14 @@ import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 const UpdateMovieModal = props => {
-  const [title, setTitle] = React.useState(props.movie.title);
-  const [year, setYear] = React.useState(props.movie.year);
-  const [poster, setPoster] = React.useState(props.movie.poster);
-  const [runtime, setRuntime] = React.useState(props.movie.runtime);
+  const [title, setTitle] = React.useState("");
+  const [year, setYear] = React.useState("");
+  const [poster, setPoster] = React.useState("");
+  const [runtime, setRuntime] = React.useState("");
 
-  const handleUpdate = async id => {
-    await fetch(`http://localhost:5000/film/${id}`, {
-      method: "put",
+  const handleAdd = async () => {
+    await fetch(`http://localhost:5000/film`, {
+      method: "post",
       body: JSON.stringify({
         title,
         year: parseInt(year),
@@ -22,12 +22,16 @@ const UpdateMovieModal = props => {
     });
     props.toggle();
     props.refresh();
+    setTitle("");
+    setYear("");
+    setPoster("");
+    setRuntime("");
   };
 
   return (
     <Modal isOpen={props.isOpen}>
-      <ModalHeader className="bg-warning" toggle={props.toggle}>
-        <strong>Update:</strong> {props.movie.title}
+      <ModalHeader className="bg-success" toggle={props.toggle}>
+        <strong>Add new movie</strong>
       </ModalHeader>
       <ModalBody>
         <form
@@ -73,9 +77,9 @@ const UpdateMovieModal = props => {
         </form>
       </ModalBody>
       <ModalFooter>
-        <Button color="warning" onClick={() => handleUpdate(props.movie._id)}>
-          Update
-        </Button>{" "}
+        <Button color="success" onClick={() => handleAdd()}>
+          Add
+        </Button>
         <Button color="secondary" onClick={props.toggle}>
           Cancel
         </Button>

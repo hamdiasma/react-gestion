@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 const DeleteMovieModal = props => {
+  
   const handleDelete = async id => {
     await fetch(`http://localhost:5000/film/${id}`, {
       method: "delete"

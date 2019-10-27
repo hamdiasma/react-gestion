@@ -1,9 +1,10 @@
-import React, { Fragment } from "react";
+import React from "react";
 import {
   Card,
   CardImg,
   CardText,
   CardBody,
+  CardFooter,
   CardTitle,
   CardSubtitle,
   Button
@@ -23,18 +24,18 @@ const MovieCard = props => {
   };
 
   return (
-    <div className="col-md-3 mt-5">
+    <div className="col-md-3 mb-5">
       <Card>
-        {props.movie.poster ? (
-          <CardImg
-            top
-            width="100%"
-            src={props.movie.poster}
-            alt={props.movie.title}
-          />
-        ) : (
-          <Fragment />
-        )}
+        <CardImg
+          top
+          width="100%"
+          src={
+            props.movie.poster
+              ? props.movie.poster
+              : "https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/film-3385785534._CB483791896_.png"
+          }
+          alt={props.movie.title}
+        />
         <CardBody>
           <CardTitle>
             <h4>{props.movie.title}</h4>
@@ -45,13 +46,15 @@ const MovieCard = props => {
           <CardText>
             <strong>Runtime:</strong> {props.movie.runtime}
           </CardText>
+        </CardBody>
+        <CardFooter style={{ display: "flex", placeContent: "space-between" }}>
           <Button color="warning" onClick={() => toggleUpdate()}>
             Update
           </Button>
           <Button color="danger" onClick={() => toggleDelete()}>
             Delete
           </Button>
-        </CardBody>
+        </CardFooter>
       </Card>
       <UpdateMovieModal
         isOpen={isUpdateOpen}
