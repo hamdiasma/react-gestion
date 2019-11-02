@@ -11,7 +11,7 @@ class SeriesContainer extends React.Component {
       movies: null,
       moviesNb: 0,
       pagesNb: 0,
-      pageLength: 4,
+      pagesize: 8,
       currentPage: 1
     };
   }

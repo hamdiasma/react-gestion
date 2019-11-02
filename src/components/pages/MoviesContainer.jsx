@@ -18,7 +18,7 @@ class MoviesContainer extends React.Component {
 
   async componentDidMount() {
     const response = await fetch(
-      `http://localhost:5000/films/${this.state.currentPage}`
+      `http://localhost:5000/films4/${this.state.pageLength}/${this.state.currentPage}`
     );
     const content = await response.json();
     this.setState({
@@ -48,7 +48,7 @@ class MoviesContainer extends React.Component {
 
   refresh = async () => {
     const response = await fetch(
-      `http://localhost:5000/films/${this.state.currentPage}`
+      `http://localhost:5000/films/${this.state.pageLength}/${this.state.currentPage}`
     );
     const content = await response.json();
     this.setState({
@@ -72,7 +72,7 @@ class MoviesContainer extends React.Component {
           <div>
             <Button color="success" onClick={() => this.toggleAdd()}>
               <span role="img" aria-label="add">
-                ➕ 
+                ➕
               </span>{" "}
               Add movie
             </Button>
@@ -99,10 +99,10 @@ class MoviesContainer extends React.Component {
           ) : this.state.movies.length === 0 ? (
             <h3 className="col text-center">No movies found...</h3>
           ) : (
-            this.state.movies.map(m => (
-              <MovieCard key={m._id} movie={m} refresh={this.refresh} />
-            ))
-          )}
+                this.state.movies.map(m => (
+                  <MovieCard key={m._id} movie={m} refresh={this.refresh} />
+                ))
+              )}
         </div>
       </div>
     );
