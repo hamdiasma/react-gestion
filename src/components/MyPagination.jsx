@@ -5,7 +5,9 @@ const MyPagination = props => {
   return (
     <Pagination>
       <PaginationItem>
-        <PaginationLink first href="#" onClick={() => props.goTo(1)} />
+        <PaginationLink 
+        first href="#" 
+        onClick={() => props.goTo(1)} />
       </PaginationItem>
       <PaginationItem>
         <PaginationLink previous href="#" onClick={() => props.prev()} />
