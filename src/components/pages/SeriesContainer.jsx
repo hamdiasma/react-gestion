@@ -11,14 +11,14 @@ class SeriesContainer extends React.Component {
       movies: null,
       moviesNb: 0,
       pagesNb: 0,
-      pageLength: 4,
+      pageSize: 8,
       currentPage: 1
     };
   }
 
   async componentDidMount() {
     const response = await fetch(
-      `http://localhost:5000/series/${this.state.currentPage}`
+      `http://localhost:5000/series/${this.state.pageSize}/${this.state.currentPage}`
     );
     const content = await response.json();
     this.setState({
@@ -48,7 +48,7 @@ class SeriesContainer extends React.Component {
 
   refresh = async () => {
     const response = await fetch(
-      `http://localhost:5000/series/${this.state.currentPage}`
+      `http://localhost:5000/series/${this.state.pageSize}/${this.state.currentPage}`
     );
     const content = await response.json();
     this.setState({
@@ -72,7 +72,7 @@ class SeriesContainer extends React.Component {
           <div>
             <Button color="success" onClick={() => this.toggleAdd()}>
               <span role="img" aria-label="add">
-                ➕ 
+                ➕
               </span>{" "}
               Add movie
             </Button>
