@@ -1,7 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { ButtonGroup, Button } from "reactstrap";
 import DeleteMovieModal from "./modals/DeleteMovieModal";
 import UpdateMovieModal from "./modals/UpdateMovieModal";
+import DeleteSerieModal from "./modals/DeleteSerieModal";
+import UpdateSerieModal from "./modals/UpdateSerieModal";
 import EditIcon from "../assets/images/edit.svg";
 import DeleteIcon from "../assets/images/delete.svg";
 
@@ -22,16 +24,16 @@ const MyRow = props => {
         <img
           style={{ width: 30, height: "auto" }}
           src={
-            props.movie.poster
-              ? props.movie.poster
+            props.element.poster
+              ? props.element.poster
               : "https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/film-3385785534._CB483791896_.png"
           }
-          alt={props.movie.title}
+          alt={props.element.title}
         />
       </td>
-      <td>{props.movie.title}</td>
-      <td>{props.movie.year}</td>
-      <td>{props.movie.runtime}</td>
+      <td>{props.element.title}</td>
+      <td>{props.element.year}</td>
+      <td>{props.element.runtime}</td>
       <td align="right">
         <ButtonGroup>
           <Button size="xs" color="warning" onClick={() => toggleUpdate()}>
@@ -48,18 +50,37 @@ const MyRow = props => {
           </Button>
         </ButtonGroup>
       </td>
-      <UpdateMovieModal
-        isOpen={isUpdateOpen}
-        toggle={toggleUpdate}
-        movie={props.movie}
-        refresh={props.refresh}
-      />
-      <DeleteMovieModal
-        isOpen={isDeleteOpen}
-        toggle={toggleDelete}
-        movie={props.movie}
-        refresh={props.refresh}
-      />
+      {props.type === "movie" ? (
+        <Fragment>
+          <UpdateMovieModal
+            isOpen={isUpdateOpen}
+            toggle={toggleUpdate}
+            movie={props.element}
+            refresh={props.refresh}
+          />
+          <DeleteMovieModal
+            isOpen={isDeleteOpen}
+            toggle={toggleDelete}
+            movie={props.element}
+            refresh={props.refresh}
+          />
+        </Fragment>
+      ) : (
+        <Fragment>
+          <UpdateSerieModal
+            isOpen={isUpdateOpen}
+            toggle={toggleUpdate}
+            serie={props.element}
+            refresh={props.refresh}
+          />
+          <DeleteSerieModal
+            isOpen={isDeleteOpen}
+            toggle={toggleDelete}
+            serie={props.element}
+            refresh={props.refresh}
+          />
+        </Fragment>
+      )}
     </tr>
   );
 };

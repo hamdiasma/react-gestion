@@ -138,7 +138,7 @@ class MoviesContainer extends React.Component {
             <h3 className="col text-center">No movies found...</h3>
           ) : this.state.view === "card" ? (
             this.state.movies.map(m => (
-              <MyCard key={m._id} movie={m} refresh={this.refresh} />
+              <MyCard key={m._id} element={m} refresh={this.refresh} type="movie" />
             ))
           ) : (
             <Table bordered hover striped>
@@ -153,7 +153,7 @@ class MoviesContainer extends React.Component {
               </thead>
               <tbody>
                 {this.state.movies.map(m => (
-                  <MyRow key={m._id} movie={m} refresh={this.refresh} />
+                  <MyRow key={m._id} element={m} refresh={this.refresh} type="movie" />
                 ))}
               </tbody>
             </Table>

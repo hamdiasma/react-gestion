@@ -3,7 +3,7 @@ import { Button, ButtonGroup, Col, Row, Table } from "reactstrap";
 import AddIcon from "../../assets/images/add.svg";
 import List from "../../assets/images/list.svg";
 import Card from "../../assets/images/view.svg";
-import AddMovieModal from "../modals/AddMovieModal";
+import AddSerieModal from "../modals/AddSerieModal";
 import MyCard from "../MyCard";
 import MyRow from "../MyRow";
 import MyPageSize from "../MyPageSize";
@@ -92,7 +92,7 @@ class SeriesContainer extends React.Component {
                 <span role="img" aria-label="add">
                   <img src={AddIcon} alt="Add" />
                 </span>{" "}
-                Add movie
+                Add serie
               </Button>
             </Col>
             <Col>
@@ -124,7 +124,7 @@ class SeriesContainer extends React.Component {
                 goTo={this.goTo}
               />
             </Col>
-            <AddMovieModal
+            <AddSerieModal
               isOpen={this.state.isAddOpen}
               toggle={this.toggleAdd}
               refresh={this.refresh}
@@ -137,8 +137,8 @@ class SeriesContainer extends React.Component {
           ) : this.state.series.length === 0 ? (
             <h3 className="col text-center">No series found...</h3>
           ) : this.state.view === "card" ? (
-            this.state.series.map(m => (
-              <MyCard key={m._id} movie={m} refresh={this.refresh} />
+            this.state.series.map(s => (
+              <MyCard key={s._id} element={s} refresh={this.refresh} type="serie" />
             ))
           ) : (
             <Table bordered hover striped>
@@ -152,8 +152,8 @@ class SeriesContainer extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.series.map(m => (
-                  <MyRow key={m._id} movie={m} refresh={this.refresh} />
+                {this.state.series.map(s => (
+                  <MyRow key={s._id} element={s} refresh={this.refresh} type="serie" />
                 ))}
               </tbody>
             </Table>
