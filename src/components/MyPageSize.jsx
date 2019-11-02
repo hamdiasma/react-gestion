@@ -11,9 +11,9 @@ const MyPageSize = props => {
     <FormGroup>
       <Label for="page-size">Page size</Label>
       <Input onChange={handleChange} type="select" name="page-size" id="page-size">
-        <option value={5}>5</option>
-        <option value={10}>10</option>
-        <option value={25}>25</option>
+        <option value={4}>4</option>
+        <option value={8}>8</option>
+        <option value={16}>16</option>
       </Input>
     </FormGroup>
   );

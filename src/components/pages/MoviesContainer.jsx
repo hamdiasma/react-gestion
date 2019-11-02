@@ -16,7 +16,7 @@ class MoviesContainer extends React.Component {
       view: "table",
       moviesNb: 0,
       pagesNb: 0,
-      pageSize: 8,
+      pageSize: 4,
       currentPage: 1
     };
   }
