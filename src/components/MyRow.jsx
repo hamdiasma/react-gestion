@@ -1,20 +1,11 @@
 import React from "react";
-import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  CardSubtitle,
-  Button
-} from "reactstrap";
+import { ButtonGroup, Button } from "reactstrap";
 import DeleteMovieModal from "./modals/DeleteMovieModal";
 import UpdateMovieModal from "./modals/UpdateMovieModal";
 import EditIcon from "../assets/images/edit.svg";
 import DeleteIcon from "../assets/images/delete.svg";
 
-const MovieCard = props => {
+const MyRow = props => {
   const [isUpdateOpen, setIsModalUpdate] = React.useState(false);
   const [isDeleteOpen, setIsModalDelete] = React.useState(false);
 
@@ -26,11 +17,10 @@ const MovieCard = props => {
   };
 
   return (
-    <div className="col-md-3 mb-5">
-      <Card>
-        <CardImg
-          top
-          width="100%"
+    <tr>
+      <td align="center">
+        <img
+          style={{ width: 30, height: "auto" }}
           src={
             props.movie.poster
               ? props.movie.poster
@@ -38,26 +28,26 @@ const MovieCard = props => {
           }
           alt={props.movie.title}
         />
-        <CardBody>
-          <CardTitle>
-            <h4>{props.movie.title}</h4>
-          </CardTitle>
-          <CardSubtitle>
-            <strong>Year:</strong> {props.movie.year}
-          </CardSubtitle>
-          <CardText>
-            <strong>Runtime:</strong> {props.movie.runtime} min
-          </CardText>
-        </CardBody>
-        <CardFooter style={{ display: "flex", placeContent: "space-between" }}>
-          <Button color="warning" onClick={() => toggleUpdate()}>
-            <span role="img" aria-label="edit"><img src={EditIcon} alt="Edit" /></span>{" "}Update
+      </td>
+      <td>{props.movie.title}</td>
+      <td>{props.movie.year}</td>
+      <td>{props.movie.runtime}</td>
+      <td align="right">
+        <ButtonGroup>
+          <Button size="xs" color="warning" onClick={() => toggleUpdate()}>
+            <span role="img" aria-label="edit">
+              <img src={EditIcon} alt="Edit" />
+            </span>{" "}
+            Update
           </Button>
-          <Button color="danger" onClick={() => toggleDelete()}>
-            <span role="img" aria-label="delete"><img src={DeleteIcon} alt="Delete" /></span>{" "}Delete
+          <Button size="xs" color="danger" onClick={() => toggleDelete()}>
+            <span role="img" aria-label="delete">
+              <img src={DeleteIcon} alt="Delete" />
+            </span>{" "}
+            Delete
           </Button>
-        </CardFooter>
-      </Card>
+        </ButtonGroup>
+      </td>
       <UpdateMovieModal
         isOpen={isUpdateOpen}
         toggle={toggleUpdate}
@@ -70,8 +60,8 @@ const MovieCard = props => {
         movie={props.movie}
         refresh={props.refresh}
       />
-    </div>
+    </tr>
   );
 };
 
-export default MovieCard;
+export default MyRow;

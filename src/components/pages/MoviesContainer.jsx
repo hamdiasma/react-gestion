@@ -4,8 +4,8 @@ import AddIcon from "../../assets/images/add.svg";
 import List from "../../assets/images/list.svg";
 import Card from "../../assets/images/view.svg";
 import AddMovieModal from "../modals/AddMovieModal";
-import MovieCard from "../MovieCard";
-import MovieRow from "../MovieRow";
+import MyCard from "../MyCard";
+import MyRow from "../MyRow";
 import MyPageSize from "../MyPageSize";
 import MyPagination from "../MyPagination";
 
@@ -138,7 +138,7 @@ class MoviesContainer extends React.Component {
             <h3 className="col text-center">No movies found...</h3>
           ) : this.state.view === "card" ? (
             this.state.movies.map(m => (
-              <MovieCard key={m._id} movie={m} refresh={this.refresh} />
+              <MyCard key={m._id} movie={m} refresh={this.refresh} />
             ))
           ) : (
             <Table bordered hover striped>
@@ -153,7 +153,7 @@ class MoviesContainer extends React.Component {
               </thead>
               <tbody>
                 {this.state.movies.map(m => (
-                  <MovieRow key={m._id} movie={m} refresh={this.refresh} />
+                  <MyRow key={m._id} movie={m} refresh={this.refresh} />
                 ))}
               </tbody>
             </Table>
