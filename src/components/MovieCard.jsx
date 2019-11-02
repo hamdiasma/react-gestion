@@ -11,6 +11,8 @@ import {
 } from "reactstrap";
 import DeleteMovieModal from "./modals/DeleteMovieModal";
 import UpdateMovieModal from "./modals/UpdateMovieModal";
+import EditIcon from "../assets/images/edit.svg";
+import DeleteIcon from "../assets/images/delete.svg";
 
 const MovieCard = props => {
   const [isUpdateOpen, setIsModalUpdate] = React.useState(false);
@@ -49,10 +51,10 @@ const MovieCard = props => {
         </CardBody>
         <CardFooter style={{ display: "flex", placeContent: "space-between" }}>
           <Button color="warning" onClick={() => toggleUpdate()}>
-            <span role="img" aria-label="edit">🖊️</span>{" "}Update
+            <span role="img" aria-label="edit"><img src={EditIcon} alt="Edit" /></span>{" "}Update
           </Button>
           <Button color="danger" onClick={() => toggleDelete()}>
-            <span role="img" aria-label="delete">🗑️</span>{" "}Delete
+            <span role="img" aria-label="delete"><img src={DeleteIcon} alt="Delete" /></span>{" "}Delete
           </Button>
         </CardFooter>
       </Card>

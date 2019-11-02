@@ -1,7 +1,8 @@
 import React from "react";
 import { Button } from "reactstrap";
-import MovieCard from "../MovieCard";
+import AddIcon from "../../assets/images/add.svg";
 import AddSerieModal from "../modals/AddSerieModal";
+import MovieCard from "../MovieCard";
 import MyPagination from "../MyPagination";
 
 class SeriesContainer extends React.Component {
@@ -72,7 +73,7 @@ class SeriesContainer extends React.Component {
           <div>
             <Button color="success" onClick={() => this.toggleAdd()}>
               <span role="img" aria-label="add">
-                ➕
+                <img src={AddIcon} alt="Add" />
               </span>{" "}
               Add movie
             </Button>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import DeleteIcon from "../../assets/images/delete.svg";
 
 const DeleteSerieModal = props => {
   const handleDelete = async id => {
@@ -19,7 +20,7 @@ const DeleteSerieModal = props => {
       <ModalFooter>
         <Button color="danger" onClick={() => handleDelete(props.serie._id)}>
           <span role="img" aria-label="delete">
-            🗑️
+            <img src={DeleteIcon} alt="Delete" />
           </span>{" "}
           Delete
         </Button>

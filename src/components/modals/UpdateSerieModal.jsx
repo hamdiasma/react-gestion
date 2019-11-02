@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import EditIcon from "../../assets/images/edit.svg";
 
 const UpdateSerieModal = props => {
   const [title, setTitle] = React.useState(props.serie.title);
@@ -75,7 +76,7 @@ const UpdateSerieModal = props => {
       <ModalFooter>
         <Button color="warning" onClick={() => handleUpdate(props.serie._id)}>
           <span role="img" aria-label="edit">
-            🖊️
+            <img src={EditIcon} alt="Edit" />
           </span>{" "}
           Update
         </Button>

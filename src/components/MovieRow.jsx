@@ -1,7 +1,9 @@
 import React from "react";
-import { tr, td, Button } from "reactstrap";
+import { ButtonGroup, Button } from "reactstrap";
 import DeleteMovieModal from "./modals/DeleteMovieModal";
 import UpdateMovieModal from "./modals/UpdateMovieModal";
+import EditIcon from "../assets/images/edit.svg";
+import DeleteIcon from "../assets/images/delete.svg";
 
 const MovieRow = props => {
   const [isUpdateOpen, setIsModalUpdate] = React.useState(false);
@@ -16,7 +18,7 @@ const MovieRow = props => {
 
   return (
     <tr>
-      <td>
+      <td align="center">
         <img
           style={{ width: 30, height: "auto" }}
           src={
@@ -30,19 +32,21 @@ const MovieRow = props => {
       <td>{props.movie.title}</td>
       <td>{props.movie.year}</td>
       <td>{props.movie.runtime}</td>
-      <td style={{ display: "flex", placeContent: "space-between" }}>
-        <Button size="xs" color="warning" onClick={() => toggleUpdate()}>
-          <span role="img" aria-label="edit">
-            🖊️
-          </span>{" "}
-          Update
-        </Button>
-        <Button size="xs" color="danger" onClick={() => toggleDelete()}>
-          <span role="img" aria-label="delete">
-            🗑️
-          </span>{" "}
-          Delete
-        </Button>
+      <td align="right">
+        <ButtonGroup>
+          <Button size="xs" color="warning" onClick={() => toggleUpdate()}>
+            <span role="img" aria-label="edit">
+              <img src={EditIcon} alt="Edit" />
+            </span>{" "}
+            Update
+          </Button>
+          <Button size="xs" color="danger" onClick={() => toggleDelete()}>
+            <span role="img" aria-label="delete">
+              <img src={DeleteIcon} alt="Delete" />
+            </span>{" "}
+            Delete
+          </Button>
+        </ButtonGroup>
       </td>
       <UpdateMovieModal
         isOpen={isUpdateOpen}

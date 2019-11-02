@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import AddIcon from "../../assets/images/add.svg";
 
 const UpdateSerieModal = props => {
   const [title, setTitle] = React.useState("");
@@ -79,7 +80,7 @@ const UpdateSerieModal = props => {
       <ModalFooter>
         <Button color="success" onClick={() => handleAdd()}>
           <span role="img" aria-label="add">
-            ➕
+            <img src={AddIcon} alt="Add" />
           </span>{" "}
           Add
         </Button>

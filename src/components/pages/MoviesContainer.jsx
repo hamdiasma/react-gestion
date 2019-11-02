@@ -1,12 +1,13 @@
 import React from "react";
-import { Button, Row, Col, ButtonGroup, Table } from "reactstrap";
-import MovieCard from "../MovieCard";
-import MovieRow from "../MovieRow";
-import AddMovieModal from "../modals/AddMovieModal";
-import MyPagination from "../MyPagination";
-import MyPageSize from "../MyPageSize";
+import { Button, ButtonGroup, Col, Row, Table } from "reactstrap";
+import AddIcon from "../../assets/images/add.svg";
 import List from "../../assets/images/list.svg";
 import Card from "../../assets/images/view.svg";
+import AddMovieModal from "../modals/AddMovieModal";
+import MovieCard from "../MovieCard";
+import MovieRow from "../MovieRow";
+import MyPageSize from "../MyPageSize";
+import MyPagination from "../MyPagination";
 
 class MoviesContainer extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class MoviesContainer extends React.Component {
       view: "table",
       moviesNb: 0,
       pagesNb: 0,
-      pageSize: 4,
+      pageSize: 8,
       currentPage: 1
     };
   }
@@ -85,11 +86,11 @@ class MoviesContainer extends React.Component {
           className="mt-5 mb-5"
           style={{ display: "flex", placeContent: "space-between" }}
         >
-          <Row>
+          <Row style={{ width: "100%"}}>
             <Col>
               <Button color="success" onClick={() => this.toggleAdd()}>
                 <span role="img" aria-label="add">
-                  ➕
+                  <img src={AddIcon} alt="Add" />
                 </span>{" "}
                 Add movie
               </Button>
@@ -112,7 +113,8 @@ class MoviesContainer extends React.Component {
                 </Button>
               </ButtonGroup>
             </Col>
-            <Col>
+            <Col style={{display: "flex"}}>
+              <MyPageSize handle={this.handlePageSize} />
               <MyPagination
                 moviesNb={this.state.moviesNb}
                 currentPage={this.state.currentPage}
@@ -121,9 +123,6 @@ class MoviesContainer extends React.Component {
                 prev={this.prev}
                 goTo={this.goTo}
               />
-            </Col>
-            <Col>
-              <MyPageSize handle={this.handlePageSize} />
             </Col>
             <AddMovieModal
               isOpen={this.state.isAddOpen}
@@ -142,14 +141,14 @@ class MoviesContainer extends React.Component {
               <MovieCard key={m._id} movie={m} refresh={this.refresh} />
             ))
           ) : (
-            <Table>
+            <Table bordered hover striped>
               <thead>
                 <tr>
-                  <th>Poster</th>
+                  <th style={{textAlign: "center"}}>Poster</th>
                   <th>Title</th>
                   <th>Year</th>
                   <th>Runtime</th>
-                  <th>Actions</th>
+                  <th style={{textAlign: "right"}}>Actions</th>
                 </tr>
               </thead>
               <tbody>
