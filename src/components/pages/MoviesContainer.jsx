@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Fragment } from "react";
+import { connect } from "react-redux";
 import { Button, ButtonGroup, Col, Row, Table } from "reactstrap";
 import AddIcon from "../../assets/images/add.svg";
 import List from "../../assets/images/list.svg";
@@ -86,15 +87,19 @@ class MoviesContainer extends React.Component {
           className="mt-5 mb-5"
           style={{ display: "flex", placeContent: "space-between" }}
         >
-          <Row style={{ width: "100%"}}>
-            <Col>
-              <Button color="success" onClick={() => this.toggleAdd()}>
-                <span role="img" aria-label="add">
-                  <img src={AddIcon} alt="Add" />
-                </span>{" "}
-                Add movie
-              </Button>
-            </Col>
+          <Row style={{ width: "100%" }}>
+            {this.props.currentUser.name ? (
+              <Col>
+                <Button color="success" onClick={() => this.toggleAdd()}>
+                  <span role="img" aria-label="add">
+                    <img src={AddIcon} alt="Add" />
+                  </span>{" "}
+                  Add movie
+                </Button>
+              </Col>
+            ) : (
+              <Fragment />
+            )}
             <Col>
               <ButtonGroup>
                 <Button
@@ -113,7 +118,7 @@ class MoviesContainer extends React.Component {
                 </Button>
               </ButtonGroup>
             </Col>
-            <Col style={{display: "flex"}}>
+            <Col style={{ display: "flex" }}>
               <MyPageSize handle={this.handlePageSize} />
               <MyPagination
                 moviesNb={this.state.moviesNb}
@@ -138,22 +143,36 @@ class MoviesContainer extends React.Component {
             <h3 className="col text-center">No movies found...</h3>
           ) : this.state.view === "card" ? (
             this.state.movies.map(m => (
-              <MyCard key={m._id} element={m} refresh={this.refresh} type="movie" />
+              <MyCard
+                key={m._id}
+                element={m}
+                refresh={this.refresh}
+                type="movie"
+              />
             ))
           ) : (
             <Table bordered hover striped>
               <thead>
                 <tr>
-                  <th style={{textAlign: "center"}}>Poster</th>
+                  <th style={{ textAlign: "center" }}>Poster</th>
                   <th>Title</th>
                   <th>Year</th>
                   <th>Runtime</th>
-                  <th style={{textAlign: "right"}}>Actions</th>
+                  {this.props.currentUser.name ? (
+                    <th style={{ textAlign: "right" }}>Actions</th>
+                  ) : (
+                    <Fragment />
+                  )}
                 </tr>
               </thead>
               <tbody>
                 {this.state.movies.map(m => (
-                  <MyRow key={m._id} element={m} refresh={this.refresh} type="movie" />
+                  <MyRow
+                    key={m._id}
+                    element={m}
+                    refresh={this.refresh}
+                    type="movie"
+                  />
                 ))}
               </tbody>
             </Table>
@@ -164,4 +183,11 @@ class MoviesContainer extends React.Component {
   }
 }
 
-export default MoviesContainer;
+const mapStateToProps = state => ({
+  currentUser: state.currentUser
+});
+
+export default connect(
+  mapStateToProps,
+  {}
+)(MoviesContainer);

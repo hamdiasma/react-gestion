@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import {
   Collapse,
   Navbar,
@@ -6,10 +7,15 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownItem,
+  DropdownMenu
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import Icon from "../assets/images/icon.png";
+import { unsetUser } from "../actions/currentUser";
 
 class MyNavbar extends React.Component {
   constructor(props) {
@@ -48,6 +54,40 @@ class MyNavbar extends React.Component {
                 Series
               </NavLink>
             </NavItem>
+            {this.props.currentUser && this.props.currentUser.name ? (
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  <img
+                    style={{
+                      width: 32,
+                      height: "auto",
+                      marginRight: 10,
+                      marginLeft: 10,
+                      border: "1px white solid",
+                      borderRadius: "50%"
+                    }}
+                    src={this.props.currentUser.avatar}
+                    alt="Avatar"
+                  />
+                  {this.props.currentUser.name}{" "}
+                  {this.props.currentUser.lastName}
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem disabled>Profile</DropdownItem>
+                  <DropdownItem disabled>Settings</DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem onClick={this.props.unsetUser}>
+                    Disconnect
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            ) : (
+              <NavItem>
+                <NavLink tag={Link} to="/login">
+                  Login
+                </NavLink>
+              </NavItem>
+            )}
           </Nav>
         </Collapse>
       </Navbar>
@@ -55,4 +95,15 @@ class MyNavbar extends React.Component {
   }
 }
 
-export default MyNavbar;
+const mapStateToProps = state => ({
+  currentUser: state.currentUser
+});
+
+const mapDispatchToProps = {
+  unsetUser
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MyNavbar);

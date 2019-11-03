@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
 import { ButtonGroup, Button } from "reactstrap";
 import DeleteMovieModal from "./modals/DeleteMovieModal";
 import UpdateMovieModal from "./modals/UpdateMovieModal";
@@ -10,6 +11,8 @@ import DeleteIcon from "../assets/images/delete.svg";
 const MyRow = props => {
   const [isUpdateOpen, setIsModalUpdate] = React.useState(false);
   const [isDeleteOpen, setIsModalDelete] = React.useState(false);
+
+  const currentUser = useSelector(state => state.currentUser);
 
   const toggleUpdate = () => {
     setIsModalUpdate(!isUpdateOpen);
@@ -34,22 +37,26 @@ const MyRow = props => {
       <td>{props.element.title}</td>
       <td>{props.element.year}</td>
       <td>{props.element.runtime}</td>
-      <td align="right">
-        <ButtonGroup>
-          <Button size="xs" color="warning" onClick={() => toggleUpdate()}>
-            <span role="img" aria-label="edit">
-              <img src={EditIcon} alt="Edit" />
-            </span>{" "}
-            Update
-          </Button>
-          <Button size="xs" color="danger" onClick={() => toggleDelete()}>
-            <span role="img" aria-label="delete">
-              <img src={DeleteIcon} alt="Delete" />
-            </span>{" "}
-            Delete
-          </Button>
-        </ButtonGroup>
-      </td>
+      {currentUser.name ? (
+        <td align="right">
+          <ButtonGroup>
+            <Button size="xs" color="warning" onClick={() => toggleUpdate()}>
+              <span role="img" aria-label="edit">
+                <img src={EditIcon} alt="Edit" />
+              </span>{" "}
+              Update
+            </Button>
+            <Button size="xs" color="danger" onClick={() => toggleDelete()}>
+              <span role="img" aria-label="delete">
+                <img src={DeleteIcon} alt="Delete" />
+              </span>{" "}
+              Delete
+            </Button>
+          </ButtonGroup>
+        </td>
+      ) : (
+        <Fragment />
+      )}
       {props.type === "movie" ? (
         <Fragment>
           <UpdateMovieModal

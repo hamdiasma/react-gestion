@@ -1,4 +1,5 @@
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
 import {
   Card,
   CardImg,
@@ -20,13 +21,15 @@ const MyCard = props => {
   const [isUpdateOpen, setIsModalUpdate] = React.useState(false);
   const [isDeleteOpen, setIsModalDelete] = React.useState(false);
 
+  const currentUser = useSelector(state => state.currentUser);
+
   const toggleUpdate = () => {
     setIsModalUpdate(!isUpdateOpen);
   };
   const toggleDelete = () => {
     setIsModalDelete(!isDeleteOpen);
   };
-
+  console.log(currentUser);
   return (
     <div className="col-md-3 mb-5">
       <Card>
@@ -51,14 +54,26 @@ const MyCard = props => {
             <strong>Runtime:</strong> {props.element.runtime} min
           </CardText>
         </CardBody>
-        <CardFooter style={{ display: "flex", placeContent: "space-between" }}>
-          <Button color="warning" onClick={() => toggleUpdate()}>
-            <span role="img" aria-label="edit"><img src={EditIcon} alt="Edit" /></span>{" "}Update
-          </Button>
-          <Button color="danger" onClick={() => toggleDelete()}>
-            <span role="img" aria-label="delete"><img src={DeleteIcon} alt="Delete" /></span>{" "}Delete
-          </Button>
-        </CardFooter>
+        {currentUser.name ? (
+          <CardFooter
+            style={{ display: "flex", placeContent: "space-between" }}
+          >
+            <Button color="warning" onClick={() => toggleUpdate()}>
+              <span role="img" aria-label="edit">
+                <img src={EditIcon} alt="Edit" />
+              </span>{" "}
+              Update
+            </Button>
+            <Button color="danger" onClick={() => toggleDelete()}>
+              <span role="img" aria-label="delete">
+                <img src={DeleteIcon} alt="Delete" />
+              </span>{" "}
+              Delete
+            </Button>
+          </CardFooter>
+        ) : (
+          <Fragment />
+        )}
       </Card>
       {props.type === "movie" ? (
         <Fragment>
