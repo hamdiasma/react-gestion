@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { connect } from "react-redux";
 import { Button, ButtonGroup, Col, Row, Table } from "reactstrap";
 import AddIcon from "../../assets/images/add.svg";
 import List from "../../assets/images/list.svg";
@@ -94,11 +95,11 @@ class SeriesContainer extends React.Component {
                     <img src={AddIcon} alt="Add" />
                   </span>{" "}
                   Add serie
-              </Button>
-              </Col>)
-              : (<Fragment />
-              )}
-
+                </Button>
+              </Col>
+            ) : (
+              <Fragment />
+            )}
             <Col>
               <ButtonGroup>
                 <Button
@@ -142,27 +143,40 @@ class SeriesContainer extends React.Component {
             <h3 className="col text-center">No series found...</h3>
           ) : this.state.view === "card" ? (
             this.state.series.map(s => (
-              <MyCard key={s._id} element={s} refresh={this.refresh} type="serie" />
+              <MyCard
+                key={s._id}
+                element={s}
+                refresh={this.refresh}
+                type="serie"
+              />
             ))
           ) : (
-                  <Table bordered hover striped>
-                    <thead>
-                      <tr>
-                        <th style={{ textAlign: "center" }}>Poster</th>
-                        <th>Title</th>
-                        <th>Year</th>
-                        <th>Runtime</th>
-                        {this.props.currentUser.name ? (
-                          <th style={{ textAlign: "right" }}>Actions</th>) : (<Fragment />)}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {this.state.series.map(s => (
-                        <MyRow key={s._id} element={s} refresh={this.refresh} type="serie" />
-                      ))}
-                    </tbody>
-                  </Table>
-                )}
+            <Table bordered hover striped>
+              <thead>
+                <tr>
+                  <th style={{ textAlign: "center" }}>Poster</th>
+                  <th>Title</th>
+                  <th>Year</th>
+                  <th>Runtime</th>
+                  {this.props.currentUser.name ? (
+                    <th style={{ textAlign: "right" }}>Actions</th>
+                  ) : (
+                    <Fragment />
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.series.map(s => (
+                  <MyRow
+                    key={s._id}
+                    element={s}
+                    refresh={this.refresh}
+                    type="serie"
+                  />
+                ))}
+              </tbody>
+            </Table>
+          )}
         </div>
       </div>
     );
@@ -176,5 +190,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {}
-)(MoviesContainer);
-
+)(SeriesContainer);
