@@ -9,13 +9,13 @@ import MyCard from "../MyCard";
 import MyRow from "../MyRow";
 import MyPageSize from "../MyPageSize";
 import MyPagination from "../MyPagination";
+import { toggleMoviesView } from "../../actions/viewSettings";
 
 class MoviesContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       movies: null,
-      view: "table",
       moviesNb: 0,
       pagesNb: 0,
       pageSize: 8,
@@ -55,13 +55,6 @@ class MoviesContainer extends React.Component {
 
   handlePageSize = size => {
     this.setState({ pageSize: size }, () => this.refresh());
-  };
-
-  handleView = () => {
-    console.log("V");
-    this.setState({ view: this.state.view === "card" ? "table" : "card" }, () =>
-      this.refresh()
-    );
   };
 
   refresh = async () => {
@@ -104,15 +97,15 @@ class MoviesContainer extends React.Component {
               <ButtonGroup>
                 <Button
                   color="light"
-                  disabled={this.state.view === "table" ? true : false}
-                  onClick={this.handleView}
+                  disabled={this.props.view === "table" ? true : false}
+                  onClick={this.props.toggleMoviesView}
                 >
                   <img src={List} alt="Table view" /> Table
                 </Button>
                 <Button
                   color="light"
-                  disabled={this.state.view === "card" ? true : false}
-                  onClick={this.handleView}
+                  disabled={this.props.view === "card" ? true : false}
+                  onClick={this.props.toggleMoviesView}
                 >
                   <img src={Card} alt="Card view" /> Cards
                 </Button>
@@ -141,7 +134,7 @@ class MoviesContainer extends React.Component {
             <h3 className="col text-center">Loading...</h3>
           ) : this.state.movies.length === 0 ? (
             <h3 className="col text-center">No movies found...</h3>
-          ) : this.state.view === "card" ? (
+          ) : this.props.view === "card" ? (
             this.state.movies.map(m => (
               <MyCard
                 key={m._id}
@@ -184,10 +177,15 @@ class MoviesContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.currentUser
+  currentUser: state.currentUser,
+  view: state.viewSettings.movieView
 });
+
+const mapDispatchToProps = {
+  toggleMoviesView
+};
 
 export default connect(
   mapStateToProps,
-  {}
+  mapDispatchToProps
 )(MoviesContainer);

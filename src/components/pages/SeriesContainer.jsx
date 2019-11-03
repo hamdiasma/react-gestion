@@ -9,13 +9,13 @@ import MyCard from "../MyCard";
 import MyRow from "../MyRow";
 import MyPageSize from "../MyPageSize";
 import MyPagination from "../MyPagination";
+import { toggleSeriesView } from "../../actions/viewSettings";
 
 class SeriesContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       series: null,
-      view: "table",
       seriesNb: 0,
       pagesNb: 0,
       pageSize: 8,
@@ -55,13 +55,6 @@ class SeriesContainer extends React.Component {
 
   handlePageSize = size => {
     this.setState({ pageSize: size }, () => this.refresh());
-  };
-
-  handleView = () => {
-    console.log("V");
-    this.setState({ view: this.state.view === "card" ? "table" : "card" }, () =>
-      this.refresh()
-    );
   };
 
   refresh = async () => {
@@ -104,15 +97,15 @@ class SeriesContainer extends React.Component {
               <ButtonGroup>
                 <Button
                   color="light"
-                  disabled={this.state.view === "table" ? true : false}
-                  onClick={this.handleView}
+                  disabled={this.props.view === "table" ? true : false}
+                  onClick={this.props.toggleSeriesView}
                 >
                   <img src={List} alt="Table view" /> Table
                 </Button>
                 <Button
                   color="light"
-                  disabled={this.state.view === "card" ? true : false}
-                  onClick={this.handleView}
+                  disabled={this.props.view === "card" ? true : false}
+                  onClick={this.props.toggleSeriesView}
                 >
                   <img src={Card} alt="Card view" /> Cards
                 </Button>
@@ -141,7 +134,7 @@ class SeriesContainer extends React.Component {
             <h3 className="col text-center">Loading...</h3>
           ) : this.state.series.length === 0 ? (
             <h3 className="col text-center">No series found...</h3>
-          ) : this.state.view === "card" ? (
+          ) : this.props.view === "card" ? (
             this.state.series.map(s => (
               <MyCard
                 key={s._id}
@@ -184,10 +177,15 @@ class SeriesContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.currentUser
+  currentUser: state.currentUser,
+  view: state.viewSettings.serieView
 });
+
+const mapDispatchToProps = {
+  toggleSeriesView
+};
 
 export default connect(
   mapStateToProps,
-  {}
+  mapDispatchToProps
 )(SeriesContainer);
