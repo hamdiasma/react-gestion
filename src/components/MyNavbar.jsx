@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import {
   Collapse,
@@ -82,11 +82,18 @@ class MyNavbar extends React.Component {
                 </DropdownMenu>
               </UncontrolledDropdown>
             ) : (
-              <NavItem>
-                <NavLink tag={Link} to="/login">
-                  Login
-                </NavLink>
-              </NavItem>
+              <Fragment>
+                <NavItem>
+                  <NavLink tag={Link} to="/login">
+                    Login
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} to="/register">
+                    Register
+                  </NavLink>
+                </NavItem>
+              </Fragment>
             )}
           </Nav>
         </Collapse>

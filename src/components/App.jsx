@@ -7,6 +7,7 @@ import MoviesContainer from "./pages/MoviesContainer";
 import SeriesContainer from "./pages/SeriesContainer";
 import Login from "./pages/Login";
 import store from "../store";
+import Register from "./pages/Register";
 
 export default function app() {
   return (
@@ -20,6 +21,9 @@ export default function app() {
             </Route>
             <Route exact path="/login">
               <Login />
+            </Route>
+            <Route exact path="/register">
+              <Register />
             </Route>
             <Route path="/movies">
               <MoviesContainer />
