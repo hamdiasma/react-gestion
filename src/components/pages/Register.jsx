@@ -57,7 +57,7 @@ const Register = props => {
                             <Label>LastName</Label>
                             <Input
                                 value={lastName}
-                                onChange={(e) => setlastName(e.target.value)}
+                                onChange={(e) => setLastName(e.target.value)}
                                 type="text"
                                 name="lastname"
                             />
