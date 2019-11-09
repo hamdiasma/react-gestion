@@ -54,7 +54,7 @@ const MyCard = props => {
             <strong>Runtime:</strong> {props.element.runtime} min
           </CardText>
         </CardBody>
-        {currentUser.name ? (
+        {currentUser.user && currentUser.user.role === "admin" ? (
           <CardFooter
             style={{ display: "flex", placeContent: "space-between" }}
           >

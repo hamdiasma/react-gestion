@@ -1,12 +1,15 @@
 import React from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import AddIcon from "../../assets/images/add.svg";
+import {useSelector} from "react-redux";
 
 const UpdateSerieModal = props => {
   const [title, setTitle] = React.useState("");
   const [year, setYear] = React.useState("");
   const [poster, setPoster] = React.useState("");
   const [runtime, setRuntime] = React.useState("");
+
+  const currentUser = useSelector(store => store.currentUser)
 
   const handleAdd = async () => {
     await fetch(`http://localhost:5000/serie`, {
@@ -18,6 +21,7 @@ const UpdateSerieModal = props => {
         poster
       }),
       headers: {
+        authorization: currentUser.user.token,
         "Content-Type": "application/json"
       }
     });

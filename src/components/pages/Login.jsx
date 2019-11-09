@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import {
   Button,
@@ -9,7 +9,8 @@ import {
   FormGroup,
   Label,
   Input,
-  ButtonGroup
+  ButtonGroup,
+  Alert
 } from "reactstrap";
 import { setUser } from "../../actions/currentUser";
 import iconLogin from "../../assets/images/user.svg";
@@ -17,6 +18,7 @@ import iconLogin from "../../assets/images/user.svg";
 const LogIn = props => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [error, setError] = React.useState(false);
 
   const handleUsernameChange = e => {
     setEmail(e.target.value);
@@ -26,13 +28,21 @@ const LogIn = props => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    props.setUser({
-      name: "Malek",
-      lastName: "Boubakri",
-      avatar: "https://avatars0.githubusercontent.com/u/22925467?s=460&v=4"
+    const response = await fetch(`http://localhost:5000/login`, {
+      method: "post",
+      body: JSON.stringify({ email, password }),
+      headers: {
+        "Content-Type": "application/json"
+      }
     });
+    const content = await response.json();
+    if (content.token) {
+      props.setUser(content);
+    } else {
+      setError(true);
+    }
   };
 
   const handleReset = e => {
@@ -66,6 +76,11 @@ const LogIn = props => {
                 name="password"
               />
             </FormGroup>
+            {error ? (
+              <Alert color="danger">Can't log you in! Something wrong.</Alert>
+            ) : (
+              <Fragment />
+            )}
           </CardBody>
           <CardFooter>
             <ButtonGroup>

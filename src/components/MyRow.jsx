@@ -37,7 +37,7 @@ const MyRow = props => {
       <td>{props.element.title}</td>
       <td>{props.element.year}</td>
       <td>{props.element.runtime}</td>
-      {currentUser.name ? (
+      {currentUser.user && currentUser.user.role === "admin" ? (
         <td align="right">
           <ButtonGroup>
             <Button size="xs" color="warning" onClick={() => toggleUpdate()}>

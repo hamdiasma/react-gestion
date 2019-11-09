@@ -14,6 +14,7 @@ import {
   DropdownMenu
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import Fallback from "../assets/images/account.svg";
 import Icon from "../assets/images/icon.png";
 import { unsetUser } from "../actions/currentUser";
 
@@ -54,7 +55,7 @@ class MyNavbar extends React.Component {
                 Series
               </NavLink>
             </NavItem>
-            {this.props.currentUser && this.props.currentUser.name ? (
+            {this.props.currentUser && this.props.currentUser.user && this.props.currentUser.user.firstName ? (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   <img
@@ -64,13 +65,14 @@ class MyNavbar extends React.Component {
                       marginRight: 10,
                       marginLeft: 10,
                       border: "1px white solid",
+                      background: "white",
                       borderRadius: "50%"
                     }}
-                    src={this.props.currentUser.avatar}
+                    src={this.props.currentUser.user.avatar ? this.props.currentUser.user.avatar : Fallback}
                     alt="Avatar"
                   />
-                  {this.props.currentUser.name}{" "}
-                  {this.props.currentUser.lastName}
+                  {this.props.currentUser.user.firstName}{" "}
+                  {this.props.currentUser.user.lastName}
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem disabled>Profile</DropdownItem>

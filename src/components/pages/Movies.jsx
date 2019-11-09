@@ -25,7 +25,12 @@ class Movies extends React.Component {
 
   async componentDidMount() {
     const response = await fetch(
-      `http://localhost:5000/movies/${this.state.pageSize}/${this.state.currentPage}`
+      `http://localhost:5000/movies/${this.state.pageSize}/${this.state.currentPage}`,
+      {
+        headers: {
+          authorization: this.props.currentUser.token
+        }
+      }
     );
     const content = await response.json();
     this.setState({
@@ -59,7 +64,12 @@ class Movies extends React.Component {
 
   refresh = async () => {
     const response = await fetch(
-      `http://localhost:5000/movies/${this.state.pageSize}/${this.state.currentPage}`
+      `http://localhost:5000/movies/${this.state.pageSize}/${this.state.currentPage}`,
+        {
+          headers: {
+            authorization: this.props.currentUser.token
+          }
+        }
     );
     const content = await response.json();
     this.setState({
@@ -81,7 +91,7 @@ class Movies extends React.Component {
           style={{ display: "flex", placeContent: "space-between" }}
         >
           <Row style={{ width: "100%" }}>
-            {this.props.currentUser.name ? (
+            {this.props.currentUser.user && this.props.currentUser.user.role === "admin" ? (
               <Col>
                 <Button color="success" onClick={() => this.toggleAdd()}>
                   <span role="img" aria-label="add">
@@ -151,7 +161,7 @@ class Movies extends React.Component {
                   <th>Title</th>
                   <th>Year</th>
                   <th>Runtime</th>
-                  {this.props.currentUser.name ? (
+                  {this.props.currentUser.user && this.props.currentUser.user.role === "admin" ? (
                     <th style={{ textAlign: "right" }}>Actions</th>
                   ) : (
                     <Fragment />

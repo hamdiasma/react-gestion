@@ -1,12 +1,15 @@
 import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import EditIcon from "../../assets/images/edit.svg";
+import {useSelector} from "react-redux";
 
 const UpdateMovieModal = props => {
   const [title, setTitle] = React.useState(props.movie.title);
   const [year, setYear] = React.useState(props.movie.year);
   const [poster, setPoster] = React.useState(props.movie.poster);
   const [runtime, setRuntime] = React.useState(props.movie.runtime);
+
+  const currentUser = useSelector(store => store.currentUser)
 
   const handleUpdate = async id => {
     await fetch(`http://localhost:5000/movie/${id}`, {
@@ -18,6 +21,7 @@ const UpdateMovieModal = props => {
         poster
       }),
       headers: {
+        authorization: currentUser.user.token,
         "Content-Type": "application/json"
       }
     });
