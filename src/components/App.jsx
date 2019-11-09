@@ -2,9 +2,9 @@ import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import MyNavbar from "./MyNavbar";
-import HomeContainer from "./pages/HomeContainer";
-import MoviesContainer from "./pages/MoviesContainer";
-import SeriesContainer from "./pages/SeriesContainer";
+import Home from "./pages/Home";
+import MoviesContainer from "./pages/Movies";
+import SeriesContainer from "./pages/Series";
 import Login from "./pages/Login";
 import store from "../store";
 import Register from "./pages/Register";
@@ -17,7 +17,7 @@ export default function app() {
           <MyNavbar />
           <Switch>
             <Route exact path="/">
-              <HomeContainer />
+              <Home />
             </Route>
             <Route exact path="/login">
               <Login />

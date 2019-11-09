@@ -1,10 +1,10 @@
 import React from "react";
 import { Button } from "reactstrap";
 import { Link } from "react-router-dom";
-import iconSeries from "../../assets/images/tv-show-icon.jpg";
+import iconSeries from "../../assets/images/tv.png";
 import iconMovies from "../../assets/images/icon.png";
 
-const HomeContainer = () => {
+const Home = () => {
   return (
     <div className="container">
       <div className="row mt-5">
@@ -39,4 +39,4 @@ const HomeContainer = () => {
   );
 };
 
-export default HomeContainer;
+export default Home;

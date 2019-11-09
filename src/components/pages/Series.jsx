@@ -4,19 +4,19 @@ import { Button, ButtonGroup, Col, Row, Table } from "reactstrap";
 import AddIcon from "../../assets/images/add.svg";
 import List from "../../assets/images/list.svg";
 import Card from "../../assets/images/view.svg";
-import AddMovieModal from "../modals/AddMovieModal";
+import AddSerieModal from "../modals/AddSerieModal";
 import MyCard from "../MyCard";
 import MyRow from "../MyRow";
 import MyPageSize from "../MyPageSize";
 import MyPagination from "../MyPagination";
-import { toggleMoviesView } from "../../actions/viewSettings";
+import { toggleSeriesView } from "../../actions/viewSettings";
 
-class MoviesContainer extends React.Component {
+class Series extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: null,
-      moviesNb: 0,
+      series: null,
+      seriesNb: 0,
       pagesNb: 0,
       pageSize: 8,
       currentPage: 1
@@ -25,12 +25,12 @@ class MoviesContainer extends React.Component {
 
   async componentDidMount() {
     const response = await fetch(
-      `http://localhost:5000/movies/${this.state.pageSize}/${this.state.currentPage}`
+      `http://localhost:5000/series/${this.state.pageSize}/${this.state.currentPage}`
     );
     const content = await response.json();
     this.setState({
-      movies: content.docs,
-      moviesNb: content.total,
+      series: content.docs,
+      seriesNb: content.total,
       pagesNb: content.pages
     });
   }
@@ -59,12 +59,12 @@ class MoviesContainer extends React.Component {
 
   refresh = async () => {
     const response = await fetch(
-      `http://localhost:5000/movies/${this.state.pageSize}/${this.state.currentPage}`
+      `http://localhost:5000/series/${this.state.pageSize}/${this.state.currentPage}`
     );
     const content = await response.json();
     this.setState({
-      movies: content.docs,
-      moviesNb: content.total,
+      series: content.docs,
+      seriesNb: content.total,
       pagesNb: content.pages
     });
   };
@@ -87,7 +87,7 @@ class MoviesContainer extends React.Component {
                   <span role="img" aria-label="add">
                     <img src={AddIcon} alt="Add" />
                   </span>{" "}
-                  Add movie
+                  Add serie
                 </Button>
               </Col>
             ) : (
@@ -98,14 +98,14 @@ class MoviesContainer extends React.Component {
                 <Button
                   color="light"
                   disabled={this.props.view === "table" ? true : false}
-                  onClick={this.props.toggleMoviesView}
+                  onClick={this.props.toggleSeriesView}
                 >
                   <img src={List} alt="Table view" /> Table
                 </Button>
                 <Button
                   color="light"
                   disabled={this.props.view === "card" ? true : false}
-                  onClick={this.props.toggleMoviesView}
+                  onClick={this.props.toggleSeriesView}
                 >
                   <img src={Card} alt="Card view" /> Cards
                 </Button>
@@ -114,7 +114,7 @@ class MoviesContainer extends React.Component {
             <Col style={{ display: "flex" }}>
               <MyPageSize handle={this.handlePageSize} />
               <MyPagination
-                moviesNb={this.state.moviesNb}
+                seriesNb={this.state.seriesNb}
                 currentPage={this.state.currentPage}
                 pagesNb={this.state.pagesNb}
                 next={this.next}
@@ -122,7 +122,7 @@ class MoviesContainer extends React.Component {
                 goTo={this.goTo}
               />
             </Col>
-            <AddMovieModal
+            <AddSerieModal
               isOpen={this.state.isAddOpen}
               toggle={this.toggleAdd}
               refresh={this.refresh}
@@ -130,17 +130,17 @@ class MoviesContainer extends React.Component {
           </Row>
         </div>
         <div className="row">
-          {this.state.movies === null ? (
+          {this.state.series === null ? (
             <h3 className="col text-center">Loading...</h3>
-          ) : this.state.movies.length === 0 ? (
-            <h3 className="col text-center">No movies found...</h3>
+          ) : this.state.series.length === 0 ? (
+            <h3 className="col text-center">No series found...</h3>
           ) : this.props.view === "card" ? (
-            this.state.movies.map(m => (
+            this.state.series.map(s => (
               <MyCard
-                key={m._id}
-                element={m}
+                key={s._id}
+                element={s}
                 refresh={this.refresh}
-                type="movie"
+                type="serie"
               />
             ))
           ) : (
@@ -159,12 +159,12 @@ class MoviesContainer extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.movies.map(m => (
+                {this.state.series.map(s => (
                   <MyRow
-                    key={m._id}
-                    element={m}
+                    key={s._id}
+                    element={s}
                     refresh={this.refresh}
-                    type="movie"
+                    type="serie"
                   />
                 ))}
               </tbody>
@@ -178,14 +178,14 @@ class MoviesContainer extends React.Component {
 
 const mapStateToProps = state => ({
   currentUser: state.currentUser,
-  view: state.viewSettings.movieView
+  view: state.viewSettings.serieView
 });
 
 const mapDispatchToProps = {
-  toggleMoviesView
+  toggleSeriesView
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MoviesContainer);
+)(Series);

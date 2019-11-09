@@ -13,14 +13,13 @@ import {
 } from "reactstrap";
 import { setUser } from "../../actions/currentUser";
 import iconLogin from "../../assets/images/user.svg";
-import avatarIcon from "../../assets/images/account.svg";
 
 const LogIn = props => {
-  const [userName, setUserName] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   const handleUsernameChange = e => {
-    setUserName(e.target.value);
+    setEmail(e.target.value);
   };
 
   const handlePasswordChange = e => {
@@ -37,7 +36,7 @@ const LogIn = props => {
   };
 
   const handleReset = e => {
-    setUserName("");
+    setEmail("");
     setPassword("");
   };
 
@@ -46,15 +45,15 @@ const LogIn = props => {
       <form className="p-5" onSubmit={handleSubmit} onReset={handleReset}>
         <Card className="m-5">
           <CardHeader style={{ textAlign: "center" }}>
-            <img style={{ width: 200 }} src={avatarIcon} alt="Avatar" />
+            <h3>Login</h3>
           </CardHeader>
           <CardBody>
             <FormGroup>
-              <Label>Username</Label>
+              <Label>Email</Label>
               <Input
-                value={userName}
+                value={email}
                 onChange={handleUsernameChange}
-                type="text"
+                type="email"
                 name="username"
               />
             </FormGroup>

@@ -56,7 +56,7 @@ const Register = props => {
       <form className="p-5" onSubmit={handleSubmit} onReset={handleReset}>
         <Card className="m-5">
           <CardHeader style={{ textAlign: "center" }}>
-            <h4 color="bleu">Register</h4>
+            <h3>Register</h3>
           </CardHeader>
           <CardBody>
             <FormGroup>
