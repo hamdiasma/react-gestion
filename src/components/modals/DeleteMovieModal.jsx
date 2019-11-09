@@ -4,7 +4,7 @@ import DeleteIcon from "../../assets/images/delete.svg";
 
 const DeleteMovieModal = props => {
   const handleDelete = async id => {
-    await fetch(`http://localhost:5000/film/${id}`, {
+    await fetch(`http://localhost:5000/movie/${id}`, {
       method: "delete"
     });
     props.toggle();

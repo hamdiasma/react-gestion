@@ -25,7 +25,7 @@ class MoviesContainer extends React.Component {
 
   async componentDidMount() {
     const response = await fetch(
-      `http://localhost:5000/films/${this.state.pageSize}/${this.state.currentPage}`
+      `http://localhost:5000/movies/${this.state.pageSize}/${this.state.currentPage}`
     );
     const content = await response.json();
     this.setState({
@@ -59,7 +59,7 @@ class MoviesContainer extends React.Component {
 
   refresh = async () => {
     const response = await fetch(
-      `http://localhost:5000/films/${this.state.pageSize}/${this.state.currentPage}`
+      `http://localhost:5000/movies/${this.state.pageSize}/${this.state.currentPage}`
     );
     const content = await response.json();
     this.setState({

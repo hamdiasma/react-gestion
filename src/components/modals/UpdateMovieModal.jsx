@@ -9,7 +9,7 @@ const UpdateMovieModal = props => {
   const [runtime, setRuntime] = React.useState(props.movie.runtime);
 
   const handleUpdate = async id => {
-    await fetch(`http://localhost:5000/film/${id}`, {
+    await fetch(`http://localhost:5000/movie/${id}`, {
       method: "put",
       body: JSON.stringify({
         title,

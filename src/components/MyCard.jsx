@@ -39,7 +39,7 @@ const MyCard = props => {
           src={
             props.element.poster
               ? props.element.poster
-              : "https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/film-3385785534._CB483791896_.png"
+              : "https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/movie-3385785534._CB483791896_.png"
           }
           alt={props.element.title}
         />
