@@ -29,7 +29,7 @@ const MyCard = props => {
   const toggleDelete = () => {
     setIsModalDelete(!isDeleteOpen);
   };
-  console.log(currentUser);
+
   return (
     <div className="col-md-3 mb-5">
       <Card>

@@ -21,7 +21,7 @@ const UpdateMovieModal = props => {
         poster
       }),
       headers: {
-        authorization: currentUser.user.token,
+        authorization: currentUser.token,
         "Content-Type": "application/json"
       }
     });
