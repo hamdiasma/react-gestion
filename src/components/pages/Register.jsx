@@ -1,4 +1,5 @@
 import React, { useState, Fragment } from "react";
+import { withRouter } from "react-router-dom";
 import {
   Button,
   Card,
@@ -30,11 +31,13 @@ const Register = props => {
           email,
           password,
           lastName,
-          firstName,
+          firstName
         }),
         headers: {
           "Content-Type": "application/json"
         }
+      }).then(() => {
+        props.history.push("/login");
       });
     } else {
       if (!errors.includes("Password fields must be equals!"))
@@ -136,4 +139,5 @@ const Register = props => {
   );
 };
 
-export default Register;
+export default withRouter(Register);
+

@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import {
   Button,
   Card,
@@ -40,6 +41,7 @@ const LogIn = props => {
     const content = await response.json();
     if (content.token) {
       props.setUser(content);
+      props.history.push("/");
     } else {
       setError(true);
     }
@@ -110,4 +112,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LogIn);
+)(withRouter(LogIn));

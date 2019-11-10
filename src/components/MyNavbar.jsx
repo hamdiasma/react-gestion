@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -23,6 +24,11 @@ class MyNavbar extends React.Component {
     super(props);
     this.state = { isOpen: false };
   }
+
+  handleLogout = () => {
+    this.props.unsetUser();
+    this.props.history.push("/login");
+  };
 
   toggle = () => this.setState({ isOpen: !this.state.isOpen });
 
@@ -55,7 +61,9 @@ class MyNavbar extends React.Component {
                 Series
               </NavLink>
             </NavItem>
-            {this.props.currentUser && this.props.currentUser.user && this.props.currentUser.user.firstName ? (
+            {this.props.currentUser &&
+            this.props.currentUser.user &&
+            this.props.currentUser.user.firstName ? (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   <img
@@ -68,7 +76,11 @@ class MyNavbar extends React.Component {
                       background: "white",
                       borderRadius: "50%"
                     }}
-                    src={this.props.currentUser.user.avatar ? this.props.currentUser.user.avatar : Fallback}
+                    src={
+                      this.props.currentUser.user.avatar
+                        ? this.props.currentUser.user.avatar
+                        : Fallback
+                    }
                     alt="Avatar"
                   />
                   {this.props.currentUser.user.firstName}{" "}
@@ -78,7 +90,7 @@ class MyNavbar extends React.Component {
                   <DropdownItem disabled>Profile</DropdownItem>
                   <DropdownItem disabled>Settings</DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem onClick={this.props.unsetUser}>
+                  <DropdownItem onClick={this.handleLogout}>
                     Disconnect
                   </DropdownItem>
                 </DropdownMenu>
@@ -115,4 +127,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MyNavbar);
+)(withRouter(MyNavbar));
