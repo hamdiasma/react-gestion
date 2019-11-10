@@ -1,11 +1,17 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import DeleteIcon from "../../assets/images/delete.svg";
 
 const DeleteMovieModal = props => {
+  const currentUser = useSelector(store => store.currentUser);
+
   const handleDelete = async id => {
     await fetch(`http://localhost:5000/movie/${id}`, {
-      method: "delete"
+      method: "delete",
+      headers: {
+        authorization: currentUser.token
+      }
     });
     props.toggle();
     props.refresh();
