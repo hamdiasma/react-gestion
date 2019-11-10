@@ -13,7 +13,6 @@ const MyPageSize = props => {
     } else {
       props.changeSeriePageSize(parseInt(e.target.value));
     }
-    props.handle(e.target.value);
   };
 
   return (
@@ -23,37 +22,18 @@ const MyPageSize = props => {
         marginRight: 20
       }}
     >
-      <Input onChange={handleChange} type="select">
-        <option
-          value={4}
-          selected={
-            props.of === "movies"
-              ? props.viewSettings.moviePageSize === 4
-              : props.viewSettings.seriePageSize === 4
-          }
-        >
-          4
-        </option>
-        <option
-          value={8}
-          selected={
-            props.of === "movies"
-              ? props.viewSettings.moviePageSize === 8
-              : props.viewSettings.seriePageSize === 8
-          }
-        >
-          8
-        </option>
-        <option
-          value={16}
-          selected={
-            props.of === "movies"
-              ? props.viewSettings.moviePageSize === 16
-              : props.viewSettings.seriePageSize === 16
-          }
-        >
-          16
-        </option>
+      <Input
+        onChange={handleChange}
+        type="select"
+        defaultValue={
+          props.of === "movies"
+            ? props.viewSettings.moviePageSize
+            : props.viewSettings.seriePageSize
+        }
+      >
+        <option value={4}>4</option>
+        <option value={8}>8</option>
+        <option value={16}>16</option>
       </Input>
     </FormGroup>
   );

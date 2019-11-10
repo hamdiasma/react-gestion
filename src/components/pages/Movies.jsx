@@ -18,14 +18,13 @@ class Movies extends React.Component {
       movies: null,
       moviesNb: 0,
       pagesNb: 0,
-      pageSize: 8,
       currentPage: 1
     };
   }
 
   async componentDidMount() {
     const response = await fetch(
-      `http://localhost:5000/movies/${this.state.pageSize}/${this.state.currentPage}`,
+      `http://localhost:5000/movies/${this.props.pageSize}/${this.state.currentPage}`,
       {
         headers: {
           authorization: this.props.currentUser.token
@@ -38,6 +37,10 @@ class Movies extends React.Component {
       moviesNb: content.total,
       pagesNb: content.pages
     });
+  }
+
+  async componentDidUpdate() {
+    this.refresh()
   }
 
   next = () => {
@@ -58,18 +61,14 @@ class Movies extends React.Component {
     this.setState({ currentPage: page }, () => this.refresh());
   };
 
-  handlePageSize = size => {
-    this.setState({ pageSize: size }, () => this.refresh());
-  };
-
   refresh = async () => {
     const response = await fetch(
-      `http://localhost:5000/movies/${this.state.pageSize}/${this.state.currentPage}`,
-        {
-          headers: {
-            authorization: this.props.currentUser.token
-          }
+      `http://localhost:5000/movies/${this.props.pageSize}/${this.state.currentPage}`,
+      {
+        headers: {
+          authorization: this.props.currentUser.token
         }
+      }
     );
     const content = await response.json();
     this.setState({
@@ -91,7 +90,8 @@ class Movies extends React.Component {
           style={{ display: "flex", placeContent: "space-between" }}
         >
           <Row style={{ width: "100%" }}>
-            {this.props.currentUser.user && this.props.currentUser.user.role === "admin" ? (
+            {this.props.currentUser.user &&
+            this.props.currentUser.user.role === "admin" ? (
               <Col>
                 <Button color="success" onClick={() => this.toggleAdd()}>
                   <span role="img" aria-label="add">
@@ -122,7 +122,7 @@ class Movies extends React.Component {
               </ButtonGroup>
             </Col>
             <Col style={{ display: "flex" }}>
-              <MyPageSize of='movies' handle={this.handlePageSize} />
+              <MyPageSize of="movies" />
               <MyPagination
                 moviesNb={this.state.moviesNb}
                 currentPage={this.state.currentPage}
@@ -161,7 +161,8 @@ class Movies extends React.Component {
                   <th>Title</th>
                   <th>Year</th>
                   <th>Runtime</th>
-                  {this.props.currentUser.user && this.props.currentUser.user.role === "admin" ? (
+                  {this.props.currentUser.user &&
+                  this.props.currentUser.user.role === "admin" ? (
                     <th style={{ textAlign: "right" }}>Actions</th>
                   ) : (
                     <Fragment />
@@ -188,7 +189,8 @@ class Movies extends React.Component {
 
 const mapStateToProps = state => ({
   currentUser: state.currentUser,
-  view: state.viewSettings.movieView
+  view: state.viewSettings.movieView,
+  pageSize: state.viewSettings.moviePageSize
 });
 
 const mapDispatchToProps = {

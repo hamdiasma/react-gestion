@@ -18,19 +18,18 @@ class Series extends React.Component {
       series: null,
       seriesNb: 0,
       pagesNb: 0,
-      pageSize: 8,
       currentPage: 1
     };
   }
 
   async componentDidMount() {
     const response = await fetch(
-      `http://localhost:5000/series/${this.state.pageSize}/${this.state.currentPage}`,
-        {
-          headers: {
-            authorization: this.props.currentUser.token
-          }
+      `http://localhost:5000/series/${this.props.pageSize}/${this.state.currentPage}`,
+      {
+        headers: {
+          authorization: this.props.currentUser.token
         }
+      }
     );
     const content = await response.json();
     this.setState({
@@ -38,6 +37,10 @@ class Series extends React.Component {
       seriesNb: content.total,
       pagesNb: content.pages
     });
+  }
+
+  async componentDidUpdate() {
+    this.refresh()
   }
 
   next = () => {
@@ -58,18 +61,14 @@ class Series extends React.Component {
     this.setState({ currentPage: page }, () => this.refresh());
   };
 
-  handlePageSize = size => {
-    this.setState({ pageSize: size }, () => this.refresh());
-  };
-
   refresh = async () => {
     const response = await fetch(
-      `http://localhost:5000/series/${this.state.pageSize}/${this.state.currentPage}`,
-        {
-          headers: {
-            authorization: this.props.currentUser.token
-          }
+      `http://localhost:5000/series/${this.props.pageSize}/${this.state.currentPage}`,
+      {
+        headers: {
+          authorization: this.props.currentUser.token
         }
+      }
     );
     const content = await response.json();
     this.setState({
@@ -91,7 +90,8 @@ class Series extends React.Component {
           style={{ display: "flex", placeContent: "space-between" }}
         >
           <Row style={{ width: "100%" }}>
-            {this.props.currentUser.user && this.props.currentUser.user.role === "admin" ? (
+            {this.props.currentUser.user &&
+            this.props.currentUser.user.role === "admin" ? (
               <Col>
                 <Button color="success" onClick={() => this.toggleAdd()}>
                   <span role="img" aria-label="add">
@@ -122,7 +122,7 @@ class Series extends React.Component {
               </ButtonGroup>
             </Col>
             <Col style={{ display: "flex" }}>
-              <MyPageSize of='series' handle={this.handlePageSize} />
+              <MyPageSize of="series" />
               <MyPagination
                 seriesNb={this.state.seriesNb}
                 currentPage={this.state.currentPage}
@@ -161,7 +161,8 @@ class Series extends React.Component {
                   <th>Title</th>
                   <th>Year</th>
                   <th>Runtime</th>
-                  {this.props.currentUser.user && this.props.currentUser.user.role === "admin" ? (
+                  {this.props.currentUser.user &&
+                  this.props.currentUser.user.role === "admin" ? (
                     <th style={{ textAlign: "right" }}>Actions</th>
                   ) : (
                     <Fragment />
@@ -188,7 +189,8 @@ class Series extends React.Component {
 
 const mapStateToProps = state => ({
   currentUser: state.currentUser,
-  view: state.viewSettings.serieView
+  view: state.viewSettings.serieView,
+  pageSize: state.viewSettings.moviePageSize
 });
 
 const mapDispatchToProps = {
