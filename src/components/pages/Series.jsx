@@ -122,7 +122,7 @@ class Series extends React.Component {
               </ButtonGroup>
             </Col>
             <Col style={{ display: "flex" }}>
-              <MyPageSize handle={this.handlePageSize} />
+              <MyPageSize of='series' handle={this.handlePageSize} />
               <MyPagination
                 seriesNb={this.state.seriesNb}
                 currentPage={this.state.currentPage}

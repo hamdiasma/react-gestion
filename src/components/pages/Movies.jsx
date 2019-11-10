@@ -122,7 +122,7 @@ class Movies extends React.Component {
               </ButtonGroup>
             </Col>
             <Col style={{ display: "flex" }}>
-              <MyPageSize handle={this.handlePageSize} />
+              <MyPageSize of='movies' handle={this.handlePageSize} />
               <MyPagination
                 moviesNb={this.state.moviesNb}
                 currentPage={this.state.currentPage}
