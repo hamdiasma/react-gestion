@@ -78,7 +78,7 @@ class MyNavbar extends React.Component {
                     }}
                     src={
                       this.props.currentUser.user.avatar
-                        ? this.props.currentUser.user.avatar
+                        ? `http://localhost:5000${this.props.currentUser.user.avatar}`
                         : Fallback
                     }
                     alt="Avatar"

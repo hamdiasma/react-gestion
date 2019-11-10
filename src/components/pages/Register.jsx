@@ -7,6 +7,7 @@ import {
   CardBody,
   CardFooter,
   FormGroup,
+  FormText,
   Label,
   Input,
   ButtonGroup,
@@ -20,22 +21,21 @@ const Register = props => {
   const [rePassword, setRePassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [avatar, setAvatar] = useState("");
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = async e => {
     e.preventDefault();
     if (password === rePassword) {
+      const data = new FormData();
+      data.append("file", avatar);
+      data.append("firstName", firstName);
+      data.append("lastName", lastName);
+      data.append("email", email);
+      data.append("password", password);
       await fetch(`http://localhost:5000/register`, {
         method: "post",
-        body: JSON.stringify({
-          email,
-          password,
-          lastName,
-          firstName
-        }),
-        headers: {
-          "Content-Type": "application/json"
-        }
+        body: data
       }).then(() => {
         props.history.push("/login");
       });
@@ -51,6 +51,7 @@ const Register = props => {
     setRePassword("");
     setLastName("");
     setFirstName("");
+    setAvatar("");
     setErrors([]);
   };
 
@@ -112,6 +113,19 @@ const Register = props => {
                 required
               />
             </FormGroup>
+            <FormGroup>
+              <Label for="exampleFile">Avatar</Label>
+              <Input
+                type="file"
+                name="avatar"
+                id="avatar"
+                onChange={e => setAvatar(e.target.files[0])}
+              />
+              <FormText color="muted">
+                Please choose an image with type jpeg or png and size {"<"} 2
+                MB.
+              </FormText>
+            </FormGroup>
             {errors.length > 0 ? (
               <div>
                 {errors.map(error => (
@@ -140,4 +154,3 @@ const Register = props => {
 };
 
 export default withRouter(Register);
-
